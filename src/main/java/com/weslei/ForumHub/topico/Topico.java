@@ -25,10 +25,10 @@ public class Topico {
     private String titulo;
     private LocalDateTime dataCriacao;
 
-    private Boolean status;
+    private Boolean ativo;
 
     public Topico(DadosCadastroTopico dados) {
-        this.status = true;
+        this.ativo = true;
         this.mensagem = dados.mensagem();
         this.nomeCurso = dados.nomeCurso();
         this.titulo = dados.titulo();
@@ -51,6 +51,6 @@ public class Topico {
     }
 
     public void deletar() {
-        this.status = false;
+        this.ativo = false;
     }
 }

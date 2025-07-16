@@ -10,5 +10,5 @@ public interface TopicoRepository extends JpaRepository<Topico, Long> {
 
     Optional<Topico> findByTituloAndMensagem(String titulo, String mensagem);
 
-    Page<Topico> findAllByStatusTrue(Pageable paginacao);
+    Page<Topico> findAllByAtivoTrue(Pageable paginacao);
 }

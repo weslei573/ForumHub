@@ -31,7 +31,7 @@ public class TopicoController {
 
     @GetMapping
     public ResponseEntity <Page<DadosListagemTopico>> listar(@PageableDefault(size = 10, sort = {"dataCriacao"}) Pageable paginacao) {
-        var page = repository.findAllByStatusTrue(paginacao).map(DadosListagemTopico::new);
+        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemTopico::new);
 
         return ResponseEntity.ok(page);
     }
