@@ -1,4 +1,4 @@
-package com.weslei.ForumHub.topico;
+package com.weslei.ForumHub.domain.topico;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package com.weslei.ForumHub.topico;
+package com.weslei.ForumHub.domain.topico;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,6 +1,6 @@
 package com.weslei.ForumHub.controller;
 
-import com.weslei.ForumHub.topico.*;
+import com.weslei.ForumHub.domain.topico.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
