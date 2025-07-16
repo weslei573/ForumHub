@@ -18,11 +18,13 @@ public class TopicoController {
     @Autowired
     private TopicoRepository repository;
 
+    @Autowired
+    private TopicoService topicoService;
+
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroTopico dados, UriComponentsBuilder uriBuilder) {
-        var topico = new Topico(dados);
-        repository.save(topico);
+        var topico = topicoService.cadastrarTopico(dados);
 
         var uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
 
