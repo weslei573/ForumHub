@@ -25,6 +25,9 @@ public class Topico {
     private String titulo;
     private LocalDateTime dataCriacao;
 
+    @Enumerated(EnumType.STRING)
+    private StatusTopico status;
+
     private Boolean ativo;
 
     public Topico(DadosCadastroTopico dados) {
@@ -33,19 +36,20 @@ public class Topico {
         this.nomeCurso = dados.nomeCurso();
         this.titulo = dados.titulo();
         this.dataCriacao = LocalDateTime.now();
+        this.status = StatusTopico.NAO_RESPONDIDO;
     }
 
     public void atualizarInformacoes(@Valid DadosAtualizacaoTopico dados) {
-        if (dados.mensagem() != null){
+        if (dados.mensagem() != null) {
             this.mensagem = dados.mensagem();
         }
-        if (dados.titulo() != null){
+        if (dados.titulo() != null) {
             this.titulo = dados.titulo();
         }
-        if (dados.nomeCurso() != null){
+        if (dados.nomeCurso() != null) {
             this.nomeCurso = dados.nomeCurso();
         }
-        if (dataCriacao != null){
+        if (dataCriacao != null) {
             this.dataCriacao = LocalDateTime.now();
         }
     }

@@ -7,7 +7,8 @@ public record DadosDetalhamentoTopico(
         String titulo,
         String mensagem,
         String nomeCurso,
-        LocalDateTime dataCriacao
+        LocalDateTime dataCriacao,
+        StatusTopico status
         ) {
     public DadosDetalhamentoTopico(Topico topico){
         this(
@@ -15,7 +16,8 @@ public record DadosDetalhamentoTopico(
                 topico.getTitulo(),
                 topico.getMensagem(),
                 topico.getNomeCurso(),
-                topico.getDataCriacao()
+                topico.getDataCriacao(),
+                topico.getStatus()
         );
     }
 }
