@@ -1,6 +1,9 @@
 package com.weslei.ForumHub.controller;
 
 import com.weslei.ForumHub.domain.usuario.DadosAutenticacao;
+import com.weslei.ForumHub.domain.usuario.Usuario;
+import com.weslei.ForumHub.infra.security.DadosTokenJWT;
+import com.weslei.ForumHub.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +18,16 @@ public class AutenticacaoController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-        var authenticaon = manager.authenticate(authenticationToken);
+        var authentication = manager.authenticate(authenticationToken);
 
-        return ResponseEntity.ok("");
+        var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
 }
