@@ -32,7 +32,7 @@ public class TopicoController {
     }
 
     @GetMapping
-    public ResponseEntity <Page<DadosListagemTopico>> listar(@PageableDefault(size = 10, sort = {"dataCriacao"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosListagemTopico>> listar(@PageableDefault(size = 10, sort = {"dataCriacao"}) Pageable paginacao) {
         var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemTopico::new);
 
         return ResponseEntity.ok(page);
@@ -49,7 +49,7 @@ public class TopicoController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity deletar(@PathVariable Long id){
+    public ResponseEntity deletar(@PathVariable Long id) {
         var topico = repository.getReferenceById(id);
         topico.deletar();
 
@@ -57,7 +57,7 @@ public class TopicoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity detalhar(@PathVariable Long id){
+    public ResponseEntity detalhar(@PathVariable Long id) {
         var topico = repository.getReferenceById(id);
 
         return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
