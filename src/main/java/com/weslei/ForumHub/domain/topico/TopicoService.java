@@ -11,7 +11,7 @@ public class TopicoService {
 
     public Topico cadastrarTopico(DadosCadastroTopico dados) {
         if (topicoRepository.findByTituloAndMensagem(dados.titulo(), dados.mensagem()).isPresent()) {
-            throw new IllegalArgumentException("Um tópico com o mesmo título e mensagem já existe.");
+            throw new IllegalArgumentException("Um tópico com o mesmo TÍTULO e MENSAGEM já existe.");
         }
 
         Topico novoTopico = new Topico(dados);
