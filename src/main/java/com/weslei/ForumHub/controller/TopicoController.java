@@ -32,8 +32,8 @@ public class TopicoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemTopico>> listar(@PageableDefault(size = 10, sort = {"dataCriacao"}) Pageable paginacao) {
-        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemTopico::new);
+    public ResponseEntity<Page<DadosListagemTopico>> listar(@PageableDefault(size = 10, sort = {"dataCriacao", "nomeCurso"}) Pageable paginacao) {
+        var page = repository.findAll(paginacao).map(DadosListagemTopico::new);
 
         return ResponseEntity.ok(page);
     }
@@ -41,17 +41,19 @@ public class TopicoController {
     @PutMapping
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoTopico dados) {
-        var topico = repository.getReferenceById(dados.id());
-        topico.atualizarInformacoes(dados);
-
-        return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
+        Topico topicoAtualizado = topicoService.atualizarTopico(dados);
+        return ResponseEntity.ok(new DadosDetalhamentoTopico(topicoAtualizado));
     }
+
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity deletar(@PathVariable Long id) {
-        var topico = repository.getReferenceById(id);
-        topico.deletar();
+        if (!repository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        repository.deleteById(id);
 
         return ResponseEntity.noContent().build();
     }

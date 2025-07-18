@@ -28,10 +28,8 @@ public class Topico {
     @Enumerated(EnumType.STRING)
     private StatusTopico status;
 
-    private Boolean ativo;
 
     public Topico(DadosCadastroTopico dados) {
-        this.ativo = true;
         this.mensagem = dados.mensagem();
         this.nomeCurso = dados.nomeCurso();
         this.titulo = dados.titulo();
@@ -52,9 +50,5 @@ public class Topico {
         if (dataCriacao != null) {
             this.dataCriacao = LocalDateTime.now();
         }
-    }
-
-    public void deletar() {
-        this.ativo = false;
     }
 }
