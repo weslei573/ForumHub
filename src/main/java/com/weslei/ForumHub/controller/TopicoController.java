@@ -1,6 +1,7 @@
 package com.weslei.ForumHub.controller;
 
 import com.weslei.ForumHub.domain.topico.*;
+import com.weslei.ForumHub.domain.usuario.Usuario;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -23,8 +25,10 @@ public class TopicoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroTopico dados, UriComponentsBuilder uriBuilder) {
-        var topico = topicoService.cadastrarTopico(dados);
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroTopico dados, UriComponentsBuilder uriBuilder, Authentication authentication) {
+
+        Usuario autorLogado = (Usuario) authentication.getPrincipal();
+        var topico = topicoService.cadastrarTopico(dados, autorLogado);
 
         var uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
 
@@ -60,8 +64,11 @@ public class TopicoController {
 
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
-        var topico = repository.getReferenceById(id);
+        var topicoOptional = repository.findById(id);
+        if (topicoOptional.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
 
-        return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
+        return ResponseEntity.ok(new DadosDetalhamentoTopico(topicoOptional.get()));
     }
 }

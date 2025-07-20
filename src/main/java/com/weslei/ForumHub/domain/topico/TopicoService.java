@@ -1,5 +1,6 @@
 package com.weslei.ForumHub.domain.topico;
 
+import com.weslei.ForumHub.domain.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,12 +13,12 @@ public class TopicoService {
     @Autowired
     private TopicoRepository topicoRepository;
 
-    public Topico cadastrarTopico(DadosCadastroTopico dados) {
+    public Topico cadastrarTopico(DadosCadastroTopico dados, Usuario autor) {
         if (topicoRepository.findByTituloAndMensagem(dados.titulo(), dados.mensagem()).isPresent()) {
             throw new IllegalArgumentException("Um tópico com o mesmo TÍTULO e MENSAGEM já existe.");
         }
 
-        Topico novoTopico = new Topico(dados);
+        Topico novoTopico = new Topico(dados, autor);
         return topicoRepository.save(novoTopico);
     }
 

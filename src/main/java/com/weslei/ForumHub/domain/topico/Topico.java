@@ -1,5 +1,6 @@
 package com.weslei.ForumHub.domain.topico;
 
+import com.weslei.ForumHub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -28,13 +29,17 @@ public class Topico {
     @Enumerated(EnumType.STRING)
     private StatusTopico status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "autor_id")
+    private Usuario autor;
 
-    public Topico(DadosCadastroTopico dados) {
+    public Topico(DadosCadastroTopico dados, Usuario autor) {
         this.mensagem = dados.mensagem();
         this.nomeCurso = dados.nomeCurso();
         this.titulo = dados.titulo();
         this.dataCriacao = LocalDateTime.now();
         this.status = StatusTopico.NAO_RESPONDIDO;
+        this.autor = autor;
     }
 
     public void atualizarInformacoes(@Valid DadosAtualizacaoTopico dados) {
