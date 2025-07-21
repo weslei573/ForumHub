@@ -1,6 +1,6 @@
 ## 💻 Sobre o Desafio
 
-Bem-vindo ao nosso mais recente desafio Challenge Back End!
+Bem-vindo ao nosso mais recente desafio Back End!
 
 Um fórum é um espaço onde todos os participantes de uma plataforma podem colocar suas perguntas sobre determinados assuntos. Este lugar mágico está cheio de muita aprendizagem e colaboração entre alunos, professores e moderadores.
 
