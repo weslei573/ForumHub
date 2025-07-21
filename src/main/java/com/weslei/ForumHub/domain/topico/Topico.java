@@ -1,18 +1,19 @@
 package com.weslei.ForumHub.domain.topico;
 
+import com.weslei.ForumHub.domain.resposta.Resposta;
 import com.weslei.ForumHub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "topicos")
 @Entity(name = "Topico")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -27,11 +28,16 @@ public class Topico {
     private LocalDateTime dataCriacao;
 
     @Enumerated(EnumType.STRING)
+    @Setter
     private StatusTopico status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "autor_id")
     private Usuario autor;
+
+    @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Resposta> respostas = new ArrayList<>();
+
 
     public Topico(DadosCadastroTopico dados, Usuario autor) {
         this.mensagem = dados.mensagem();
