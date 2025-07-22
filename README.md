@@ -27,6 +27,8 @@ Enquanto um time de desenvolvimento será responsável pelo aplicativo mobile, o
 
 A documentação das funcionalidades da aplicação pode ser acessada neste link: <a href="https://trello.com/b/OKIUKgxe/alura-f%C3%B3rum-challenge-one-sprint-01">Trello</a>
 
+A documentação das funcionalidades da aplicação para integração no link: <a href="http://localhost:8080/swagger-ui/index.html">Documentando com SpringDoc</a>
+
 ---
 
 ## 🛠 Tecnologias
