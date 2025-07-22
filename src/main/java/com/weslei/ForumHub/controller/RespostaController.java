@@ -4,6 +4,7 @@ import com.weslei.ForumHub.domain.resposta.DadosCadastroResposta;
 import com.weslei.ForumHub.domain.resposta.DadosDetalhamentoResposta;
 import com.weslei.ForumHub.domain.resposta.RespostaService;
 import com.weslei.ForumHub.domain.usuario.Usuario;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/respostas")
+@SecurityRequirement(name = "bearer-key")
 public class RespostaController {
 
     @Autowired

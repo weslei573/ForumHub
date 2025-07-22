@@ -1,6 +1,11 @@
 package com.weslei.ForumHub.domain.topico;
 
+import com.weslei.ForumHub.domain.resposta.DadosListagemResposta;
+import com.weslei.ForumHub.domain.resposta.Resposta;
+
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public record DadosDetalhamentoTopico(
         Long id,
@@ -9,7 +14,8 @@ public record DadosDetalhamentoTopico(
         String nomeCurso,
         LocalDateTime dataCriacao,
         StatusTopico status,
-        String autorNome
+        String autorNome,
+        List<DadosListagemResposta> respostas
         ) {
     public DadosDetalhamentoTopico(Topico topico){
         this(
@@ -19,7 +25,10 @@ public record DadosDetalhamentoTopico(
                 topico.getNomeCurso(),
                 topico.getDataCriacao(),
                 topico.getStatus(),
-                topico.getAutor() != null ? topico.getAutor().getLogin() : null
+                topico.getAutor() != null ? topico.getAutor().getLogin() : null,
+                topico.getRespostas().stream()
+                        .map(DadosListagemResposta::new)
+                        .collect(Collectors.toList())
         );
     }
 }
